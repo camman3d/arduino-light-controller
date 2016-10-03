@@ -1,5 +1,5 @@
 let osc = require('node-osc');
-let server = new osc.Server(12345, '127.0.0.1');
+let server = new osc.Server(12346, '127.0.0.1');
 let express = require('express');
 let app = express();
 let SerialPort = require("serialport").SerialPort;
@@ -30,10 +30,13 @@ let patterns = [
     'green',
     'cyan',
     'blue',
-    'purple'
+    'purple',
+    'black'
 ];
 
-var serialport = new SerialPort("/dev/tty.usbmodem1421");
+
+let portName = process.argv[2] || '/dev/tty.usbmodem1421';
+let serialport = new SerialPort(portName);
 serialport.on('open', function(){
     console.log('Serial Port Opened');
     serialport.on('data', function(data){
